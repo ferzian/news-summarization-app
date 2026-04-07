@@ -1,65 +1,199 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
+import { FiCopy } from "react-icons/fi";
+import { HiOutlineSparkles } from "react-icons/hi2";
+import { LuFileText } from "react-icons/lu";
+import { RxReset } from "react-icons/rx";
 
 export default function Home() {
+  const [text, setText] = useState("");
+  const [result, setResult] = useState<{ extractive?: string; abstractive?: string }>({});
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState<"extractive" | "abstractive" | "">("");
+
+  const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+  const sentenceCount = text.trim()
+    ? text
+        .split(/[.!?]+/)
+        .map((sentence) => sentence.trim())
+        .filter(Boolean).length
+    : 0;
+
+  const handleSummarize = async () => {
+    setError("");
+    setResult({});
+
+    if (wordCount < 400 || wordCount > 1000) {
+      setError("Teks harus 400–1000 kata!");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://127.0.0.1:8000/summarize", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text }),
+      });
+
+      if (!res.ok) {
+        setError("Server ringkasan tidak merespons dengan baik. Coba lagi.");
+        return;
+      }
+
+      const data = await res.json();
+
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setResult(data);
+      }
+    } catch {
+      setError("Tidak dapat terhubung ke API. Pastikan backend berjalan di port 8000.");
+    }
+  };
+
+  const handleReset = () => {
+    setText("");
+    setResult({});
+    setError("");
+  };
+
+  const handleExample = () => {
+    setText(
+      "Pemerintah daerah mengumumkan program digitalisasi layanan publik untuk meningkatkan akses masyarakat terhadap administrasi kependudukan. Program ini mencakup pembuatan KTP, kartu keluarga, serta akta kelahiran secara daring melalui satu portal terpadu. Menurut dinas terkait, langkah ini dilakukan untuk memangkas antrean panjang di kantor pelayanan dan meningkatkan efisiensi proses verifikasi data."
+    );
+  };
+
+  const handleCopy = async (type: "extractive" | "abstractive") => {
+    const payload = result[type];
+    if (!payload) return;
+
+    await navigator.clipboard.writeText(payload);
+    setCopied(type);
+    setTimeout(() => setCopied(""), 1200);
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="mx-auto w-full max-w-6xl px-4 py-8 md:px-6 md:py-10">
+      <section className="mb-6 rounded-2xl border border-white/70 bg-white/70 p-5 shadow-sm backdrop-blur md:p-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-700">NLP Playground</p>
+        <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900 md:text-3xl">
+          Uji Ringkasan Berita Indonesia dalam Sekali Klik
+        </h2>
+        <p className="mt-2 max-w-2xl text-sm text-slate-600 md:text-base">
+          Tempelkan berita 400-1000 kata untuk membandingkan hasil extractive berbasis TF-IDF dan abstractive yang lebih natural.
+        </p>
+      </section>
+
+      <section className="grid gap-4 md:grid-cols-2">
+        <article className="rounded-xl border border-emerald-200/70 bg-white/80 p-5 shadow-sm backdrop-blur">
+          <div className="mb-2 flex items-center gap-2 text-emerald-700">
+            <LuFileText className="h-4 w-4" />
+            <h2 className="font-semibold">Extractive</h2>
+          </div>
+          <p className="text-sm text-slate-600">
+            Memilih dan mengambil kalimat-kalimat penting langsung dari teks asli berdasarkan skor relevansi (TF-IDF).
           </p>
+        </article>
+
+        <article className="rounded-xl border border-sky-200/70 bg-white/80 p-5 shadow-sm backdrop-blur">
+          <div className="mb-2 flex items-center gap-2 text-sky-700">
+            <HiOutlineSparkles className="h-4 w-4" />
+            <h2 className="font-semibold">Abstractive</h2>
+          </div>
+          <p className="text-sm text-slate-600">
+            Menghasilkan teks ringkasan baru yang merangkum ide utama dengan kata-kata yang berbeda dari teks asli.
+          </p>
+        </article>
+      </section>
+
+      <section className="mt-8 rounded-2xl border border-white/70 bg-white/80 p-5 shadow-sm backdrop-blur md:p-6">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+          <h3 className="text-lg font-semibold text-slate-800">Input Teks Berita</h3>
+          <div className="flex items-center gap-3 text-sm text-slate-500">
+            <span>{wordCount} kata</span>
+            <span>{sentenceCount} kalimat</span>
+            <button type="button" onClick={handleExample} className="font-medium text-blue-600 hover:text-blue-700">
+              Coba contoh teks
+            </button>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        <textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          rows={10}
+          className="w-full rounded-xl border border-slate-200 bg-white p-4 text-slate-700 outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+          placeholder="Tempelkan teks berita di sini..."
+        />
+
+        {error && <p className="mt-3 text-sm font-medium text-red-500">{error}</p>}
+
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={handleSummarize}
+            className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <LuFileText className="h-4 w-4" />
+            Ringkas Teks
+          </button>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
           >
-            Documentation
-          </a>
+            <RxReset className="h-4 w-4" />
+            Reset
+          </button>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="mt-8 grid gap-4 pb-3 md:grid-cols-2">
+        <article className="rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-sm">
+          <div className="mb-3 flex items-center justify-between text-slate-700">
+            <h4 className="font-semibold">Hasil Extractive</h4>
+            <button
+              type="button"
+              onClick={() => handleCopy("extractive")}
+              className="inline-flex items-center gap-2 rounded-md border border-slate-200 px-2.5 py-1.5 text-sm text-slate-500 transition hover:bg-slate-50"
+            >
+              <span>{result.extractive ? result.extractive.split(/\s+/).length : 0} kata</span>
+              <FiCopy className="h-4 w-4" />
+              <span>{copied === "extractive" ? "Tersalin" : "Copy"}</span>
+            </button>
+          </div>
+          <div className="min-h-40 rounded-xl bg-cyan-50 p-4 text-slate-700">
+            {result.extractive || "Belum ada hasil extractive."}
+          </div>
+          <p className="mt-3 text-sm text-slate-500">
+            Kalimat dipilih langsung dari teks asli berdasarkan skor TF-IDF tertinggi.
+          </p>
+        </article>
+
+        <article className="rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-sm">
+          <div className="mb-3 flex items-center justify-between text-slate-700">
+            <h4 className="font-semibold">Hasil Abstractive</h4>
+            <button
+              type="button"
+              onClick={() => handleCopy("abstractive")}
+              className="inline-flex items-center gap-2 rounded-md border border-slate-200 px-2.5 py-1.5 text-sm text-slate-500 transition hover:bg-slate-50"
+            >
+              <span>{result.abstractive ? result.abstractive.split(/\s+/).length : 0} kata</span>
+              <FiCopy className="h-4 w-4" />
+              <span>{copied === "abstractive" ? "Tersalin" : "Copy"}</span>
+            </button>
+          </div>
+          <div className="min-h-40 rounded-xl bg-sky-50 p-4 text-slate-700">
+            {result.abstractive || "Belum ada hasil abstractive."}
+          </div>
+          <p className="mt-3 text-sm text-slate-500">
+            Teks baru yang dihasilkan dari analisis topik dan kata kunci utama.
+          </p>
+        </article>
+      </section>
+    </main>
   );
 }
