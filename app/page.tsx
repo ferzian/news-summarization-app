@@ -62,7 +62,7 @@ export default function Home() {
 
   const handleExample = () => {
     setText(
-      "Pemerintah daerah mengumumkan program digitalisasi layanan publik untuk meningkatkan akses masyarakat terhadap administrasi kependudukan. Program ini mencakup pembuatan KTP, kartu keluarga, serta akta kelahiran secara daring melalui satu portal terpadu. Menurut dinas terkait, langkah ini dilakukan untuk memangkas antrean panjang di kantor pelayanan dan meningkatkan efisiensi proses verifikasi data."
+      "Pemerintah daerah mengumumkan program digitalisasi layanan publik untuk meningkatkan akses masyarakat terhadap administrasi kependudukan. Program ini mencakup pembuatan KTP, kartu keluarga, serta akta kelahiran secara daring melalui satu portal terpadu. Menurut dinas terkait, langkah ini dilakukan untuk memangkas antrean panjang di kantor pelayanan dan meningkatkan efisiensi proses verifikasi data. Masyarakat dapat mengakses layanan ini melalui aplikasi mobile atau situs web resmi pemerintah daerah, dengan fitur unggah dokumen yang aman dan sistem notifikasi untuk setiap tahap proses. Diharapkan dengan adanya digitalisasi ini, masyarakat dapat lebih mudah dan cepat mendapatkan dokumen kependudukan tanpa harus datang langsung ke kantor pelayanan."
     );
   };
 
