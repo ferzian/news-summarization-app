@@ -169,7 +169,7 @@ export default function Home() {
             {result.extractive || "Belum ada hasil extractive."}
           </div>
           <p className="mt-3 text-sm text-slate-500">
-            Kalimat dipilih langsung dari teks asli berdasarkan skor TF-IDF tertinggi.
+            Kalimat dipilih langsung dari teks asli berdasarkan skor tertinggi.
           </p>
         </article>
 
