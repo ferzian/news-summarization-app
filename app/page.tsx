@@ -78,7 +78,6 @@ export default function Home() {
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-8 md:px-6 md:py-10">
       <section className="mb-6 rounded-2xl border border-white/70 bg-white/70 p-5 shadow-sm backdrop-blur md:p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-700">NLP Playground</p>
         <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900 md:text-3xl">
           Uji Ringkasan Berita Indonesia dalam Sekali Klik
         </h2>
