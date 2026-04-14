@@ -77,7 +77,7 @@ export default function Home() {
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-8 md:px-6 md:py-10">
-      <section className="mb-6 rounded-2xl border border-white/70 bg-white/70 p-5 shadow-sm backdrop-blur md:p-6">
+      <section className="mb-6 rounded-2xl border border-emerald-900/10 bg-white/85 p-5 shadow-sm backdrop-blur md:p-6">
         <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900 md:text-3xl">
           Uji Ringkasan Berita Indonesia dalam Sekali Klik
         </h2>
@@ -87,7 +87,7 @@ export default function Home() {
       </section>
 
       <section className="grid gap-4 md:grid-cols-2">
-        <article className="rounded-xl border border-emerald-200/70 bg-white/80 p-5 shadow-sm backdrop-blur">
+        <article className="rounded-xl border border-emerald-900/15 bg-white/90 p-5 shadow-sm backdrop-blur">
           <div className="mb-2 flex items-center gap-2 text-emerald-700">
             <LuFileText className="h-4 w-4" />
             <h2 className="font-semibold">Extractive</h2>
@@ -97,8 +97,8 @@ export default function Home() {
           </p>
         </article>
 
-        <article className="rounded-xl border border-sky-200/70 bg-white/80 p-5 shadow-sm backdrop-blur">
-          <div className="mb-2 flex items-center gap-2 text-sky-700">
+        <article className="rounded-xl border border-emerald-900/15 bg-white/90 p-5 shadow-sm backdrop-blur">
+          <div className="mb-2 flex items-center gap-2 text-emerald-700">
             <HiOutlineSparkles className="h-4 w-4" />
             <h2 className="font-semibold">Abstractive</h2>
           </div>
@@ -108,13 +108,13 @@ export default function Home() {
         </article>
       </section>
 
-      <section className="mt-8 rounded-2xl border border-white/70 bg-white/80 p-5 shadow-sm backdrop-blur md:p-6">
+      <section className="mt-8 rounded-2xl border border-emerald-900/10 bg-white/90 p-5 shadow-sm backdrop-blur md:p-6">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <h3 className="text-lg font-semibold text-slate-800">Input Teks Berita</h3>
           <div className="flex items-center gap-3 text-sm text-slate-500">
             <span>{wordCount} kata</span>
             <span>{sentenceCount} kalimat</span>
-            <button type="button" onClick={handleExample} className="font-medium text-blue-600 hover:text-blue-700">
+            <button type="button" onClick={handleExample} className="font-medium text-emerald-700 hover:text-emerald-800">
               Coba contoh teks
             </button>
           </div>
@@ -124,7 +124,7 @@ export default function Home() {
           value={text}
           onChange={(e) => setText(e.target.value)}
           rows={10}
-          className="w-full rounded-xl border border-slate-200 bg-white p-4 text-slate-700 outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+          className="w-full rounded-xl border border-slate-300 bg-white p-4 text-slate-800 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
           placeholder="Tempelkan teks berita di sini..."
         />
 
@@ -134,7 +134,7 @@ export default function Home() {
           <button
             type="button"
             onClick={handleSummarize}
-            className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+            className="inline-flex items-center gap-2 rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-800"
           >
             <LuFileText className="h-4 w-4" />
             Ringkas Teks
@@ -151,20 +151,20 @@ export default function Home() {
       </section>
 
       <section className="mt-8 grid gap-4 pb-3 md:grid-cols-2">
-        <article className="rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-sm">
+        <article className="rounded-2xl border border-emerald-900/10 bg-white/95 p-4 shadow-sm">
           <div className="mb-3 flex items-center justify-between text-slate-700">
             <h4 className="font-semibold">Hasil Extractive</h4>
             <button
               type="button"
               onClick={() => handleCopy("extractive")}
-              className="inline-flex items-center gap-2 rounded-md border border-slate-200 px-2.5 py-1.5 text-sm text-slate-500 transition hover:bg-slate-50"
+              className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-2.5 py-1.5 text-sm text-slate-600 transition hover:bg-slate-50"
             >
               <span>{result.extractive ? result.extractive.split(/\s+/).length : 0} kata</span>
               <FiCopy className="h-4 w-4" />
               <span>{copied === "extractive" ? "Tersalin" : "Copy"}</span>
             </button>
           </div>
-          <div className="min-h-40 rounded-xl bg-cyan-50 p-4 text-slate-700">
+          <div className="min-h-40 rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 text-slate-700">
             {result.extractive || "Belum ada hasil extractive."}
           </div>
           <p className="mt-3 text-sm text-slate-500">
@@ -172,20 +172,20 @@ export default function Home() {
           </p>
         </article>
 
-        <article className="rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-sm">
+        <article className="rounded-2xl border border-emerald-900/10 bg-white/95 p-4 shadow-sm">
           <div className="mb-3 flex items-center justify-between text-slate-700">
             <h4 className="font-semibold">Hasil Abstractive</h4>
             <button
               type="button"
               onClick={() => handleCopy("abstractive")}
-              className="inline-flex items-center gap-2 rounded-md border border-slate-200 px-2.5 py-1.5 text-sm text-slate-500 transition hover:bg-slate-50"
+              className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-2.5 py-1.5 text-sm text-slate-600 transition hover:bg-slate-50"
             >
               <span>{result.abstractive ? result.abstractive.split(/\s+/).length : 0} kata</span>
               <FiCopy className="h-4 w-4" />
               <span>{copied === "abstractive" ? "Tersalin" : "Copy"}</span>
             </button>
           </div>
-          <div className="min-h-40 rounded-xl bg-sky-50 p-4 text-slate-700">
+          <div className="min-h-40 rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 text-slate-700">
             {result.abstractive || "Belum ada hasil abstractive."}
           </div>
           <p className="mt-3 text-sm text-slate-500">
