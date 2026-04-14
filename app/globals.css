@@ -1,10 +1,10 @@
 @import 'tailwindcss';
 
 :root {
-	--bg-base: #f8fafc;
-	--bg-accent: #e2e8f0;
-	--ink: #0f172a;
-	--muted: #475569;
+	--bg-base: #f6f7f6;
+	--bg-accent: #d8ddd8;
+	--ink: #111111;
+	--muted: #4a4a4a;
 }
 
 * {
@@ -20,12 +20,12 @@ body {
 	margin: 0;
 	color: var(--ink);
 	background:
-		radial-gradient(circle at 15% 15%, rgba(14, 165, 233, 0.18), transparent 42%),
-		radial-gradient(circle at 85% 10%, rgba(16, 185, 129, 0.14), transparent 38%),
+		radial-gradient(circle at 15% 15%, rgba(34, 197, 94, 0.15), transparent 44%),
+		radial-gradient(circle at 85% 10%, rgba(22, 101, 52, 0.1), transparent 40%),
 		linear-gradient(180deg, var(--bg-base) 0%, #ffffff 100%);
 }
 
 ::selection {
-	background: rgba(14, 165, 233, 0.24);
+	background: rgba(34, 197, 94, 0.26);
 }
 
