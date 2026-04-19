@@ -82,7 +82,7 @@ export default function Home() {
           Uji Ringkasan Berita Indonesia dalam Sekali Klik
         </h2>
         <p className="mt-2 max-w-2xl text-sm text-slate-600 md:text-base">
-          Tempelkan berita 400-1000 kata untuk membandingkan hasil extractive berbasis TF-IDF dan abstractive yang lebih natural.
+          Tempelkan berita untuk membandingkan hasil extractive dan abstractive.
         </p>
       </section>
 
