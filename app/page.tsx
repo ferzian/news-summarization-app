@@ -7,7 +7,10 @@ import { RxReset } from "react-icons/rx";
 
 export default function Home() {
   const [text, setText] = useState("");
-  const [result, setResult] = useState<{ extractive?: string; abstractive?: string }>({});
+  const [result, setResult] = useState<{
+    extractive?: string;
+    abstractive?: string;
+  }>({});
   const [error, setError] = useState("");
   const [copied, setCopied] = useState<"extractive" | "abstractive" | "">("");
 
@@ -50,7 +53,9 @@ export default function Home() {
         setResult(data);
       }
     } catch {
-      setError("Tidak dapat terhubung ke API. Pastikan backend berjalan di port 8000.");
+      setError(
+        "Tidak dapat terhubung ke API. Pastikan backend berjalan di port 8000.",
+      );
     }
   };
 
@@ -62,7 +67,7 @@ export default function Home() {
 
   const handleExample = () => {
     setText(
-      "Pemerintah daerah mengumumkan program digitalisasi layanan publik untuk meningkatkan akses masyarakat terhadap administrasi kependudukan. Program ini mencakup pembuatan KTP, kartu keluarga, serta akta kelahiran secara daring melalui satu portal terpadu. Menurut dinas terkait, langkah ini dilakukan untuk memangkas antrean panjang di kantor pelayanan dan meningkatkan efisiensi proses verifikasi data. Masyarakat dapat mengakses layanan ini melalui aplikasi mobile atau situs web resmi pemerintah daerah, dengan fitur unggah dokumen yang aman dan sistem notifikasi untuk setiap tahap proses. Diharapkan dengan adanya digitalisasi ini, masyarakat dapat lebih mudah dan cepat mendapatkan dokumen kependudukan tanpa harus datang langsung ke kantor pelayanan."
+      "Pemerintah daerah mengumumkan program digitalisasi layanan publik untuk meningkatkan akses masyarakat terhadap administrasi kependudukan. Program ini mencakup pembuatan KTP, kartu keluarga, serta akta kelahiran secara daring melalui satu portal terpadu. Menurut dinas terkait, langkah ini dilakukan untuk memangkas antrean panjang di kantor pelayanan dan meningkatkan efisiensi proses verifikasi data. Masyarakat dapat mengakses layanan ini melalui aplikasi mobile atau situs web resmi pemerintah daerah, dengan fitur unggah dokumen yang aman dan sistem notifikasi untuk setiap tahap proses. Diharapkan dengan adanya digitalisasi ini, masyarakat dapat lebih mudah dan cepat mendapatkan dokumen kependudukan tanpa harus datang langsung ke kantor pelayanan.",
     );
   };
 
@@ -93,7 +98,8 @@ export default function Home() {
             <h2 className="font-semibold">Extractive</h2>
           </div>
           <p className="text-sm text-slate-600">
-            Memilih dan mengambil kalimat-kalimat penting langsung dari teks asli menggunakan model IndoBERT.
+            Memilih dan mengambil kalimat-kalimat penting langsung dari teks
+            asli menggunakan model IndoBERT.
           </p>
         </article>
 
@@ -103,18 +109,25 @@ export default function Home() {
             <h2 className="font-semibold">Abstractive</h2>
           </div>
           <p className="text-sm text-slate-600">
-            Menghasilkan teks ringkasan baru yang merangkum ide utama dengan kata-kata yang berbeda dari teks asli menggunakan model IndoT5.
+            Menghasilkan teks ringkasan baru yang merangkum ide utama dengan
+            kata-kata yang berbeda dari teks asli menggunakan model IndoT5.
           </p>
         </article>
       </section>
 
       <section className="mt-8 rounded-2xl border border-emerald-900/10 bg-white/90 p-5 shadow-sm backdrop-blur md:p-6">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-          <h3 className="text-lg font-semibold text-slate-800">Input Teks Berita</h3>
+          <h3 className="text-lg font-semibold text-slate-800">
+            Input Teks Berita
+          </h3>
           <div className="flex items-center gap-3 text-sm text-slate-500">
             <span>{wordCount} kata</span>
             <span>{sentenceCount} kalimat</span>
-            <button type="button" onClick={handleExample} className="font-medium text-emerald-700 hover:text-emerald-800 hover:cursor-pointer">
+            <button
+              type="button"
+              onClick={handleExample}
+              className="font-medium text-emerald-700 hover:text-emerald-800 hover:cursor-pointer"
+            >
               Coba contoh teks
             </button>
           </div>
@@ -128,7 +141,9 @@ export default function Home() {
           placeholder="Tempelkan teks berita di sini..."
         />
 
-        {error && <p className="mt-3 text-sm font-medium text-red-500">{error}</p>}
+        {error && (
+          <p className="mt-3 text-sm font-medium text-red-500">{error}</p>
+        )}
 
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <button
@@ -157,9 +172,12 @@ export default function Home() {
             <button
               type="button"
               onClick={() => handleCopy("extractive")}
-              className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-2.5 py-1.5 text-sm text-slate-600 transition hover:bg-slate-50"
+              className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-2.5 py-1.5 text-sm text-slate-600 transition hover:bg-slate-50 hover:cursor-pointer"
             >
-              <span>{result.extractive ? result.extractive.split(/\s+/).length : 0} kata</span>
+              <span>
+                {result.extractive ? result.extractive.split(/\s+/).length : 0}{" "}
+                kata
+              </span>
               <FiCopy className="h-4 w-4" />
               <span>{copied === "extractive" ? "Tersalin" : "Copy"}</span>
             </button>
@@ -178,9 +196,14 @@ export default function Home() {
             <button
               type="button"
               onClick={() => handleCopy("abstractive")}
-              className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-2.5 py-1.5 text-sm text-slate-600 transition hover:bg-slate-50"
+              className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-2.5 py-1.5 text-sm text-slate-600 transition hover:bg-slate-50 hover:cursor-pointer"
             >
-              <span>{result.abstractive ? result.abstractive.split(/\s+/).length : 0} kata</span>
+              <span>
+                {result.abstractive
+                  ? result.abstractive.split(/\s+/).length
+                  : 0}{" "}
+                kata
+              </span>
               <FiCopy className="h-4 w-4" />
               <span>{copied === "abstractive" ? "Tersalin" : "Copy"}</span>
             </button>
