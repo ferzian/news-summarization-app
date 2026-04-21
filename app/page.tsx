@@ -103,7 +103,7 @@ export default function Home() {
             <h2 className="font-semibold">Abstractive</h2>
           </div>
           <p className="text-sm text-slate-600">
-            Menghasilkan teks ringkasan baru yang merangkum ide utama dengan kata-kata yang berbeda dari teks asli.
+            Menghasilkan teks ringkasan baru yang merangkum ide utama dengan kata-kata yang berbeda dari teks asli menggunakan model IndoT5.
           </p>
         </article>
       </section>
