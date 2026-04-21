@@ -79,7 +79,7 @@ export default function Home() {
     <main className="mx-auto w-full max-w-6xl px-4 py-8 md:px-6 md:py-10">
       <section className="mb-6 rounded-2xl border border-emerald-900/10 bg-white/85 p-5 shadow-sm backdrop-blur md:p-6">
         <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900 md:text-3xl">
-          Uji Ringkasan Berita Indonesia dalam Sekali Klik
+          Uji Ringkasan Berita Indonesia
         </h2>
         <p className="mt-2 max-w-2xl text-sm text-slate-600 md:text-base">
           Tempelkan berita untuk membandingkan hasil extractive dan abstractive.
