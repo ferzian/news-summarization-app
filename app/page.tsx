@@ -93,7 +93,7 @@ export default function Home() {
             <h2 className="font-semibold">Extractive</h2>
           </div>
           <p className="text-sm text-slate-600">
-            Memilih dan mengambil kalimat-kalimat penting langsung dari teks asli berdasarkan skor relevansi (TF-IDF).
+            Memilih dan mengambil kalimat-kalimat penting langsung dari teks asli menggunakan model IndoBERT.
           </p>
         </article>
 
