@@ -114,7 +114,7 @@ export default function Home() {
           <div className="flex items-center gap-3 text-sm text-slate-500">
             <span>{wordCount} kata</span>
             <span>{sentenceCount} kalimat</span>
-            <button type="button" onClick={handleExample} className="font-medium text-emerald-700 hover:text-emerald-800">
+            <button type="button" onClick={handleExample} className="font-medium text-emerald-700 hover:text-emerald-800 hover:cursor-pointer">
               Coba contoh teks
             </button>
           </div>
