@@ -26,22 +26,28 @@ export default function Home() {
     setError("");
     setResult({});
 
+    // Validasi jumlah kata sesuai kebutuhan skripsimu
     if (wordCount < 400 || wordCount > 1000) {
       setError("Teks harus 400–1000 kata!");
       return;
     }
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/summarize", {
+      // Mengambil URL dari .env.local atau fallback ke localhost
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+      
+      const res = await fetch(`${apiUrl}/summarize`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          // HEADER PENTING: Untuk melewati halaman peringatan Ngrok gratisan
+          "ngrok-skip-browser-warning": "true",
         },
         body: JSON.stringify({ text }),
       });
 
       if (!res.ok) {
-        setError("Server ringkasan tidak merespons dengan baik. Coba lagi.");
+        setError("Server ringkasan tidak merespons. Pastikan Ngrok/Backend sudah aktif.");
         return;
       }
 
@@ -50,11 +56,14 @@ export default function Home() {
       if (data.error) {
         setError(data.error);
       } else {
-        setResult(data);
+        setResult({
+          extractive: data.extractive,
+          abstractive: data.abstractive
+        });
       }
     } catch {
       setError(
-        "Tidak dapat terhubung ke API. Pastikan backend berjalan di port 8000.",
+        "Koneksi gagal. Cek apakah URL Ngrok di .env.local sudah benar dan aktif.",
       );
     }
   };
