@@ -102,7 +102,7 @@ export default function Home() {
 
       <section className="grid gap-4 md:grid-cols-2">
         <article className="rounded-xl border border-emerald-900/15 bg-white/90 p-5 shadow-sm backdrop-blur">
-          <div className="mb-2 flex items-center gap-2 text-emerald-700">
+          <div className="mb-2 flex items-center gap-2 text-black-700">
             <LuFileText className="h-4 w-4" />
             <h2 className="font-semibold">Extractive</h2>
           </div>
@@ -113,7 +113,7 @@ export default function Home() {
         </article>
 
         <article className="rounded-xl border border-emerald-900/15 bg-white/90 p-5 shadow-sm backdrop-blur">
-          <div className="mb-2 flex items-center gap-2 text-emerald-700">
+          <div className="mb-2 flex items-center gap-2 text-black-700">
             <HiOutlineSparkles className="h-4 w-4" />
             <h2 className="font-semibold">Abstractive</h2>
           </div>
