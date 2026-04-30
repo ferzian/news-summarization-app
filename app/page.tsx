@@ -124,7 +124,7 @@ export default function Home() {
         </article>
       </section>
 
-      <section className="mt-8 rounded-2xl border border-emerald-900/10 bg-white/90 p-5 shadow-sm backdrop-blur md:p-6">
+      {/* <section className="mt-8 rounded-2xl border border-emerald-900/10 bg-white/90 p-5 shadow-sm backdrop-blur md:p-6"> */}
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <h3 className="text-lg font-semibold text-slate-800">
             Input Teks Berita
@@ -172,7 +172,7 @@ export default function Home() {
             Reset
           </button>
         </div>
-      </section>
+      {/* </section> */}
 
       <section className="mt-8 grid gap-4 pb-3 md:grid-cols-2">
         <article className="rounded-2xl border border-emerald-900/10 bg-white/95 p-4 shadow-sm">
