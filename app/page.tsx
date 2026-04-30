@@ -125,7 +125,7 @@ export default function Home() {
       </section>
 
       {/* <section className="mt-8 rounded-2xl border border-emerald-900/10 bg-white/90 p-5 shadow-sm backdrop-blur md:p-6"> */}
-        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3 mt-5">
           <h3 className="text-lg font-semibold text-slate-800">
             Input Teks Berita
           </h3>
@@ -151,7 +151,7 @@ export default function Home() {
         />
 
         {error && (
-          <p className="mt-3 text-sm font-medium text-red-500">{error}</p>
+          <p className="mt-1 text-sm font-medium text-red-500">{error}</p>
         )}
 
         <div className="mt-6 flex flex-wrap items-center gap-3">
