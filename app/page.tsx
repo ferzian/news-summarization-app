@@ -166,7 +166,7 @@ export default function Home() {
           <button
             type="button"
             onClick={handleReset}
-            className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
+            className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:cursor-pointer"
           >
             <RxReset className="h-4 w-4" />
             Reset
