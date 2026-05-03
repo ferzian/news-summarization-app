@@ -158,7 +158,7 @@ export default function Home() {
           <button
             type="button"
             onClick={handleSummarize}
-            className="inline-flex items-center gap-2 rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-800"
+            className="inline-flex items-center gap-2 rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-800 hover:cursor-pointer"
           >
             <LuFileText className="h-4 w-4" />
             Ringkas Teks
