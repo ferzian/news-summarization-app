@@ -76,7 +76,7 @@ export default function Home() {
 
   const handleExample = () => {
     setText(
-      "Pemerintah daerah mengumumkan program digitalisasi layanan publik untuk meningkatkan akses masyarakat terhadap administrasi kependudukan. Program ini mencakup pembuatan KTP, kartu keluarga, serta akta kelahiran secara daring melalui satu portal terpadu. Menurut dinas terkait, langkah ini dilakukan untuk memangkas antrean panjang di kantor pelayanan dan meningkatkan efisiensi proses verifikasi data. Masyarakat dapat mengakses layanan ini melalui aplikasi mobile atau situs web resmi pemerintah daerah, dengan fitur unggah dokumen yang aman dan sistem notifikasi untuk setiap tahap proses. Diharapkan dengan adanya digitalisasi ini, masyarakat dapat lebih mudah dan cepat mendapatkan dokumen kependudukan tanpa harus datang langsung ke kantor pelayanan.",
+      "Industri teknologi informasi Indonesia terus mengalami pertumbuhan yang signifikan dalam lima tahun terakhir, dengan kontribusi ekonomi digital mencapai lebih dari 200 miliar dolar Amerika pada tahun 2024. Pertumbuhan ini didorong oleh meningkatnya adopsi internet di kalangan masyarakat urban, khususnya dalam segmen e-commerce, fintech, dan layanan digital lainnya. Menurut laporan terbaru dari Badan Pusat Statistik, penetrasi internet di Indonesia telah mencapai 77 persen dari total populasi, dengan lebih dari 204 juta pengguna aktif. Perkembangan ini menciptakan peluang kerja baru bagi profesional muda, terutama dalam bidang pengembangan perangkat lunak, analisis data, dan keamanan siber. Sejumlah startup teknologi Indonesia telah berhasil mendapatkan pendanaan dari investor global, mencapai status unicorn dengan valuasi melebihi satu miliar dolar. Perusahaan-perusahaan ini tidak hanya fokus pada pasar domestik, tetapi juga telah memperluas jangkauan mereka ke pasar Asia Tenggara dan dunia. Pemerintah Indonesia melalui Kementerian Komunikasi dan Informatika juga aktif mendukung ekosistem teknologi dengan memberikan insentif pajak, mempermudah regulasi, dan mendorong investasi infrastruktur digital. Program digitalisasi di berbagai sektor, mulai dari pendidikan, kesehatan, hingga administrasi pemerintah, telah mempercepat transformasi digital di negeri ini. Tantangan yang masih dihadapi termasuk kesenjangan digital antara daerah urban dan rural, kurangnya tenaga ahli terampil, serta keamanan siber yang perlu ditingkatkan. Namun, para pemimpin industri optimis bahwa Indonesia memiliki potensi besar untuk menjadi pusat teknologi digital di Asia Tenggara dalam dekade mendatang. Kolaborasi antara pemerintah, akademisi, dan sektor privat dianggap kunci untuk mewujudkan visi tersebut dan memanfaatkan peluang pertumbuhan ekonomi digital secara maksimal.",
     );
   };
 
@@ -126,7 +126,7 @@ export default function Home() {
 
       {/* <section className="mt-8 rounded-2xl border border-emerald-900/10 bg-white/90 p-5 shadow-sm backdrop-blur md:p-6"> */}
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3 mt-5">
-          <h3 className="text-lg font-semibold text-slate-800">
+          <h3 className="text-2xl font-bold text-slate-800">
             Input Teks Berita
           </h3>
           <div className="flex items-center gap-3 text-sm text-slate-500">
