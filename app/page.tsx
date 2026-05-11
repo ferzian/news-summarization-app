@@ -35,19 +35,20 @@ export default function Home() {
     try {
       // Mengambil URL dari .env.local atau fallback ke localhost
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
-      
+
       const res = await fetch(`${apiUrl}/summarize`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // HEADER PENTING: Untuk melewati halaman peringatan Ngrok gratisan
           "ngrok-skip-browser-warning": "true",
         },
         body: JSON.stringify({ text }),
       });
 
       if (!res.ok) {
-        setError("Server ringkasan tidak merespons. Pastikan Ngrok/Backend sudah aktif.");
+        setError(
+          "Server ringkasan tidak merespons. Pastikan Ngrok/Backend sudah aktif.",
+        );
         return;
       }
 
@@ -58,7 +59,7 @@ export default function Home() {
       } else {
         setResult({
           extractive: data.extractive,
-          abstractive: data.abstractive
+          abstractive: data.abstractive,
         });
       }
     } catch {
@@ -124,55 +125,51 @@ export default function Home() {
         </article>
       </section>
 
-      {/* <section className="mt-8 rounded-2xl border border-emerald-900/10 bg-white/90 p-5 shadow-sm backdrop-blur md:p-6"> */}
-        <div className="mb-3 flex flex-wrap items-center justify-between gap-3 mt-5">
-          <h3 className="text-2xl font-bold text-slate-800">
-            Input Teks Berita
-          </h3>
-          <div className="flex items-center gap-3 text-sm text-slate-500">
-            <span>{wordCount} kata</span>
-            <span>{sentenceCount} kalimat</span>
-            <button
-              type="button"
-              onClick={handleExample}
-              className="font-medium text-emerald-700 hover:text-emerald-800 hover:cursor-pointer"
-            >
-              Coba contoh teks
-            </button>
-          </div>
-        </div>
-
-        <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          rows={10}
-          className="w-full rounded-xl border border-slate-300 bg-white p-4 text-slate-800 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
-          placeholder="Tempelkan teks berita di sini..."
-        />
-
-        {error && (
-          <p className="mt-1 text-sm font-medium text-red-500">{error}</p>
-        )}
-
-        <div className="mt-6 flex flex-wrap items-center gap-3">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-3 mt-5">
+        <h3 className="text-2xl font-bold text-slate-800">Input Teks Berita</h3>
+        <div className="flex items-center gap-3 text-sm text-slate-500">
+          <span>{wordCount} kata</span>
+          <span>{sentenceCount} kalimat</span>
           <button
             type="button"
-            onClick={handleSummarize}
-            className="inline-flex items-center gap-2 rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-800 hover:cursor-pointer"
+            onClick={handleExample}
+            className="font-medium text-emerald-700 hover:text-emerald-800 hover:cursor-pointer"
           >
-            <LuFileText className="h-4 w-4" />
-            Ringkas Teks
-          </button>
-          <button
-            type="button"
-            onClick={handleReset}
-            className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:cursor-pointer"
-          >
-            <RxReset className="h-4 w-4" />
-            Reset
+            Coba contoh teks
           </button>
         </div>
-      {/* </section> */}
+      </div>
+
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        rows={10}
+        className="w-full rounded-xl border border-slate-300 bg-white p-4 text-slate-800 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+        placeholder="Tempelkan teks berita di sini..."
+      />
+
+      {error && (
+        <p className="mt-1 text-sm font-medium text-red-500">{error}</p>
+      )}
+
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        <button
+          type="button"
+          onClick={handleSummarize}
+          className="inline-flex items-center gap-2 rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-800 hover:cursor-pointer"
+        >
+          <LuFileText className="h-4 w-4" />
+          Ringkas Teks
+        </button>
+        <button
+          type="button"
+          onClick={handleReset}
+          className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:cursor-pointer"
+        >
+          <RxReset className="h-4 w-4" />
+          Reset
+        </button>
+      </div>
 
       <section className="mt-8 grid gap-4 pb-3 md:grid-cols-2">
         <article className="rounded-2xl border border-emerald-900/10 bg-white/95 p-4 shadow-sm">
