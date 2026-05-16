@@ -13,8 +13,7 @@ export default function Home() {
     abstractive?: string;
   }>({});
   const [error, setError] = useState("");
-  const [copied, setCopied] = useState<"extractive" | "abstractive" | "">("");
-
+  const [copied, setCopied] = useState<"extractive" | "abstractive" | "">("");  const [loading, setLoading] = useState(false);
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
   const sentenceCount = text.trim()
     ? text
@@ -26,10 +25,12 @@ export default function Home() {
   const handleSummarize = async () => {
     setError("");
     setResult({});
+    setLoading(true);
 
     // Validasi jumlah kata sesuai kebutuhan skripsimu
     if (wordCount < 400 || wordCount > 1000) {
       setError("Teks harus 400–1000 kata!");
+      setLoading(false);
       return;
     }
 
@@ -50,6 +51,7 @@ export default function Home() {
         setError(
           "Server ringkasan tidak merespons. Pastikan Ngrok/Backend sudah aktif.",
         );
+        setLoading(false);
         return;
       }
 
@@ -67,6 +69,8 @@ export default function Home() {
       setError(
         "Koneksi gagal. Cek apakah URL Ngrok di .env.local sudah benar dan aktif.",
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -157,15 +161,26 @@ export default function Home() {
         <button
           type="button"
           onClick={handleSummarize}
-          className="inline-flex items-center gap-2 rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-800 hover:cursor-pointer"
+          disabled={loading}
+          className="inline-flex items-center gap-2 rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-800 hover:cursor-pointer disabled:bg-emerald-500 disabled:cursor-not-allowed"
         >
-          <LuFileText className="h-4 w-4" />
-          Ringkas Teks
+          {loading ? (
+            <>
+              <HiOutlineSparkles className="h-4 w-4 animate-spin" />
+              Memproses...
+            </>
+          ) : (
+            <>
+              <LuFileText className="h-4 w-4" />
+              Ringkas Teks
+            </>
+          )}
         </button>
         <button
           type="button"
           onClick={handleReset}
-          className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:cursor-pointer"
+          disabled={loading}
+          className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:cursor-pointer disabled:bg-slate-100 disabled:cursor-not-allowed"
         >
           <RxReset className="h-4 w-4" />
           Reset
@@ -179,7 +194,8 @@ export default function Home() {
             <button
               type="button"
               onClick={() => handleCopy("extractive")}
-              className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-2.5 py-1.5 text-sm text-slate-600 transition hover:bg-slate-50 hover:cursor-pointer"
+              disabled={!result.extractive || loading}
+              className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-2.5 py-1.5 text-sm text-slate-600 transition hover:bg-slate-50 hover:cursor-pointer disabled:bg-slate-100 disabled:cursor-not-allowed"
             >
               <span>
                 {result.extractive ? result.extractive.split(/\s+/).length : 0}{" "}
@@ -190,7 +206,16 @@ export default function Home() {
             </button>
           </div>
           <div className="min-h-40 rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 text-slate-700">
-            {result.extractive || "Belum ada hasil extractive."}
+            {loading ? (
+              <div className="flex h-full items-center justify-center">
+                <div className="flex flex-col items-center gap-2 text-slate-400">
+                  <HiOutlineSparkles className="h-6 w-6 animate-spin" />
+                  <span className="text-sm">Memproses...</span>
+                </div>
+              </div>
+            ) : (
+              result.extractive || "Belum ada hasil extractive."
+            )}
           </div>
           <p className="mt-3 text-sm text-slate-500">
             Kalimat dipilih langsung dari teks asli berdasarkan skor tertinggi.
@@ -203,7 +228,8 @@ export default function Home() {
             <button
               type="button"
               onClick={() => handleCopy("abstractive")}
-              className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-2.5 py-1.5 text-sm text-slate-600 transition hover:bg-slate-50 hover:cursor-pointer"
+              disabled={!result.abstractive || loading}
+              className="inline-flex items-center gap-2 rounded-md border border-slate-300 px-2.5 py-1.5 text-sm text-slate-600 transition hover:bg-slate-50 hover:cursor-pointer disabled:bg-slate-100 disabled:cursor-not-allowed"
             >
               <span>
                 {result.abstractive
@@ -216,7 +242,16 @@ export default function Home() {
             </button>
           </div>
           <div className="min-h-40 rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 text-slate-700">
-            {result.abstractive || "Belum ada hasil abstractive."}
+            {loading ? (
+              <div className="flex h-full items-center justify-center">
+                <div className="flex flex-col items-center gap-2 text-slate-400">
+                  <HiOutlineSparkles className="h-6 w-6 animate-spin" />
+                  <span className="text-sm">Memproses...</span>
+                </div>
+              </div>
+            ) : (
+              result.abstractive || "Belum ada hasil abstractive."
+            )}
           </div>
           <p className="mt-3 text-sm text-slate-500">
             Teks baru yang dihasilkan dari analisis topik dan kata kunci utama.
