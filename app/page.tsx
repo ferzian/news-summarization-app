@@ -138,7 +138,8 @@ export default function Home() {
           <button
             type="button"
             onClick={handleExample}
-            className="font-medium text-emerald-700 hover:text-emerald-800 hover:cursor-pointer"
+            disabled={loading}
+            className="font-medium text-emerald-700 hover:text-emerald-800 hover:cursor-pointer disabled:text-slate-400 disabled:cursor-not-allowed"
           >
             Coba contoh teks
           </button>
