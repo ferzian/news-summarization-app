@@ -49,14 +49,14 @@ const validateTextInput = (inputText: string): { isValid: boolean; error?: strin
   if (words < 400) {
     return {
       isValid: false,
-      error: `❌ Teks terlalu singkat. Minimal 400 kata (Saat ini: ${words} kata).`,
+      error: `❌ Teks terlalu singkat. Minimal 400 kata.`,
     };
   }
 
   if (words > 1000) {
     return {
       isValid: false,
-      error: `❌ Teks terlalu panjang. Maksimal 1000 kata (Saat ini: ${words} kata).`,
+      error: `❌ Teks terlalu panjang. Maksimal 1000 kata.`,
     };
   }
 
@@ -72,7 +72,6 @@ export default function Home() {
   const [error, setError] = useState("");
   const [copied, setCopied] = useState<"extractive" | "abstractive" | "">("");
   const [loading, setLoading] = useState(false);
-  const [validationDetails, setValidationDetails] = useState<string[]>([]);
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
   const sentenceCount = text.trim()
@@ -158,7 +157,7 @@ export default function Home() {
   };
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 py-8 md:px-6 md:py-10">
+    <main className="mx-auto w-full max-w-7xl px-4 py-8 md:px-6 md:py-10">
       <section className="mb-6 rounded-2xl border border-emerald-900/10 bg-white/85 p-5 shadow-sm backdrop-blur md:p-6">
         <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900 md:text-3xl">
           Uji Ringkasan Berita Indonesia
