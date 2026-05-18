@@ -6,6 +6,63 @@ import { LuFileText } from "react-icons/lu";
 import { RxReset } from "react-icons/rx";
 import { getRandomNews } from "@/src/lib/news";
 
+const validateTextInput = (inputText: string): { isValid: boolean; error?: string } => {
+  if (!inputText || inputText.trim().length === 0) {
+    return {
+      isValid: false,
+      error: "❌ Teks tidak boleh kosong. Silakan masukkan berita.",
+    };
+  }
+
+  if (!/[a-zA-Z\u0600-\u06FF]/.test(inputText)) {
+    return {
+      isValid: false,
+      error: "❌ Teks harus mengandung minimal huruf/teks. Angka dan simbol saja tidak valid.",
+    };
+  }
+
+  if (/  {2,}/.test(inputText)) {
+    return {
+      isValid: false,
+      error: "❌ Teks mengandung terlalu banyak spasi berturut-turut. Gunakan format teks yang normal.",
+    };
+  }
+
+  if (/\n{3,}/.test(inputText)) {
+    return {
+      isValid: false,
+      error: "❌ Teks mengandung terlalu banyak line break. Gunakan format teks yang normal.",
+    };
+  }
+
+  const nonWhitespaceLength = inputText.replace(/\s/g, "").length;
+  const whitespaceRatio = 1 - (nonWhitespaceLength / inputText.length);
+  if (whitespaceRatio > 0.4) {
+    return {
+      isValid: false,
+      error: "❌ Teks mengandung terlalu banyak spasi kosong. Pastikan format teks benar.",
+    };
+  }
+
+  const words = inputText.trim().split(/\s+/).length;
+  
+  if (words < 400) {
+    return {
+      isValid: false,
+      error: `❌ Teks terlalu singkat. Minimal 400 kata (Saat ini: ${words} kata).`,
+    };
+  }
+
+  if (words > 1000) {
+    return {
+      isValid: false,
+      error: `❌ Teks terlalu panjang. Maksimal 1000 kata (Saat ini: ${words} kata).`,
+    };
+  }
+
+  return { isValid: true };
+};
+
 export default function Home() {
   const [text, setText] = useState("");
   const [result, setResult] = useState<{
@@ -13,7 +70,10 @@ export default function Home() {
     abstractive?: string;
   }>({});
   const [error, setError] = useState("");
-  const [copied, setCopied] = useState<"extractive" | "abstractive" | "">("");  const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState<"extractive" | "abstractive" | "">("");
+  const [loading, setLoading] = useState(false);
+  const [validationDetails, setValidationDetails] = useState<string[]>([]);
+
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
   const sentenceCount = text.trim()
     ? text
@@ -21,15 +81,17 @@ export default function Home() {
         .map((sentence) => sentence.trim())
         .filter(Boolean).length
     : 0;
+  const characterCount = text.trim().length;
 
   const handleSummarize = async () => {
     setError("");
     setResult({});
     setLoading(true);
 
-    // Validasi jumlah kata sesuai kebutuhan skripsimu
-    if (wordCount < 400 || wordCount > 1000) {
-      setError("Teks harus 400–1000 kata!");
+    // Jalankan validasi
+    const validation = validateTextInput(text);
+    if (!validation.isValid) {
+      setError(validation.error || "Validasi gagal!");
       setLoading(false);
       return;
     }
@@ -135,6 +197,7 @@ export default function Home() {
         <div className="flex items-center gap-3 text-sm text-slate-500">
           <span>{wordCount} kata</span>
           <span>{sentenceCount} kalimat</span>
+          <span>{characterCount} karakter</span>
           <button
             type="button"
             onClick={handleExample}
