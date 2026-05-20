@@ -6,7 +6,9 @@ import { LuFileText } from "react-icons/lu";
 import { RxReset } from "react-icons/rx";
 import { getRandomNews } from "@/src/lib/news";
 
-const validateTextInput = (inputText: string): { isValid: boolean; error?: string } => {
+const validateTextInput = (
+  inputText: string,
+): { isValid: boolean; error?: string } => {
   if (!inputText || inputText.trim().length === 0) {
     return {
       isValid: false,
@@ -17,35 +19,39 @@ const validateTextInput = (inputText: string): { isValid: boolean; error?: strin
   if (!/[a-zA-Z\u0600-\u06FF]/.test(inputText)) {
     return {
       isValid: false,
-      error: "❌ Teks harus mengandung minimal huruf/teks. Angka dan simbol saja tidak valid.",
+      error:
+        "❌ Teks harus mengandung minimal huruf/teks. Angka dan simbol saja tidak valid.",
     };
   }
 
   if (/  {2,}/.test(inputText)) {
     return {
       isValid: false,
-      error: "❌ Teks mengandung terlalu banyak spasi berturut-turut. Gunakan format teks yang normal.",
+      error:
+        "❌ Teks mengandung terlalu banyak spasi berturut-turut. Gunakan format teks yang normal.",
     };
   }
 
   if (/\n{3,}/.test(inputText)) {
     return {
       isValid: false,
-      error: "❌ Teks mengandung terlalu banyak line break. Gunakan format teks yang normal.",
+      error:
+        "❌ Teks mengandung terlalu banyak line break. Gunakan format teks yang normal.",
     };
   }
 
   const nonWhitespaceLength = inputText.replace(/\s/g, "").length;
-  const whitespaceRatio = 1 - (nonWhitespaceLength / inputText.length);
+  const whitespaceRatio = 1 - nonWhitespaceLength / inputText.length;
   if (whitespaceRatio > 0.4) {
     return {
       isValid: false,
-      error: "❌ Teks mengandung terlalu banyak spasi kosong. Pastikan format teks benar.",
+      error:
+        "❌ Teks mengandung terlalu banyak spasi kosong. Pastikan format teks benar.",
     };
   }
 
   const words = inputText.trim().split(/\s+/).length;
-  
+
   if (words < 400) {
     return {
       isValid: false,
@@ -96,9 +102,7 @@ export default function Home() {
     }
 
     try {
-      // Mengambil URL dari .env.local atau fallback ke localhost
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
-
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
       const res = await fetch(`${apiUrl}/summarize`, {
         method: "POST",
         headers: {
@@ -142,10 +146,10 @@ export default function Home() {
   };
 
   const handleExample = async () => {
-  const randomNews = await getRandomNews();
+    const randomNews = await getRandomNews();
 
-  setText(randomNews);
-};
+    setText(randomNews);
+  };
 
   const handleCopy = async (type: "extractive" | "abstractive") => {
     const payload = result[type];
