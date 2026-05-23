@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "News Summarization",
   description: "Summarize Indonesian news articles using Abstractive and Extractive methods.",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
