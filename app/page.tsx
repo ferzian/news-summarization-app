@@ -285,7 +285,7 @@ export default function Home() {
             )}
           </div>
           <p className="mt-3 text-sm text-slate-500">
-            Kalimat dipilih langsung dari teks asli berdasarkan skor tertinggi.
+            Kalimat dipilih langsung dari teks asli.
           </p>
         </article>
 
